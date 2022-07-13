@@ -35,7 +35,8 @@ struct OptionButton: View {
         .font(.title)
         .foregroundColor(.black)
         .frame(minWidth: 250, maxWidth: .infinity, maxHeight: 90, alignment: .center)
-        .background(Color.cyan)
+        .background(LinearGradient(colors: [.yellow, .blue], startPoint: .leading, endPoint: .trailing)
+            .ignoresSafeArea())
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
