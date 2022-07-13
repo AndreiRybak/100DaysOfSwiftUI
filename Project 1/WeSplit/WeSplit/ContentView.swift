@@ -36,6 +36,7 @@ struct ContentView: View {
                     TextField("Total amount:", value: $checkAmount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
                         .keyboardType(.decimalPad)
                         .focused($amountIsFocused)
+                        .foregroundColor(tipPercentage == 0 ? .red : .black)
                     Picker("Number of people", selection: $numberOfPeople) {
                         ForEach(2..<100) {
                             Text("\($0) people")
