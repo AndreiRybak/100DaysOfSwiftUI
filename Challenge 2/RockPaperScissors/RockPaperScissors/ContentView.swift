@@ -66,6 +66,7 @@ struct ContentView: View {
     @State private var isWinExpected: Bool = Bool.random()
     @State private var isEndGameAlertShown: Bool = false
     @State private var scores: Int = 0
+    private let scoresToWin = 8
     
     init() {
         aiOption = options.randomElement() ?? .rock
@@ -150,7 +151,7 @@ struct ContentView: View {
             scores -= 1
         }
 
-        if scores == 2 {
+        if scores == scoresToWin {
             isEndGameAlertShown = true
         }
         
