@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct UserDetailView: View {
-    @State var user: User
+    @State var user: CachedUser
     
     var body: some View {
         ScrollView {
             VStack {
                 HStack {
-                    Text(user.name)
+                    Text(user.wrappedName)
                         .font(.system(size: 32, weight: .heavy, design: .rounded))
                     VStack {
                         if user.isActive {
@@ -30,7 +30,7 @@ struct UserDetailView: View {
                 }
                 
                 HStack {
-                    Text(user.email)
+                    Text(user.wrappedEmail)
                         .font(.system(size: 16, weight: .light))
                     Spacer()
                 }
@@ -45,10 +45,10 @@ struct UserDetailView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Register date: \(user.registered.formatted(date: .numeric, time: .omitted))")
-                        Text("Age: \(user.age)")
-                        Text("Address: \(user.address)")
-                        Text("Company: \(user.company)")
+                        Text("Register date: \(user.wrappedRegistered.formatted(date: .numeric, time: .omitted))")
+                        Text("Age: \(user.wrappedAge)")
+                        Text("Address: \(user.wrappedAddress)")
+                        Text("Company: \(user.wrappedCompany)")
                     }
                     .padding()
                     Spacer()
@@ -63,7 +63,7 @@ struct UserDetailView: View {
                 }
                 .padding(.top, 24)
                 
-                Text(user.about)
+                Text(user.wrappedAbout)
                     .font(.body)
                     .padding(.top, 4)
                 
@@ -79,8 +79,8 @@ struct UserDetailView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(user.friends) { friend in
-                        Text(friend.name)
+                    ForEach(user.friendsArray) { friend in
+                        Text(friend.wrappedName)
                             .padding()
                     }
                     .foregroundColor(.white)
@@ -104,10 +104,4 @@ struct UserDetailView: View {
         )
     }
     
-}
-
-struct UserDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDetailView(user: User(id: "123", isActive: true, registered: Date.now, name: "Andrei Rybak", age: 42, company: "Epam systems", email: "andreyrybak0895@gmail.com", address: "Sienna grobla 6c", about: "Senior software engineer", tags: [""], friends: [Friend(id: "123", name: "Yulia Kazakova"), Friend(id: "123", name: "Yulia Kazakova"), Friend(id: "123", name: "Yulia Kazakova"), Friend(id: "123", name: "Yulia Kazakova"), Friend(id: "123", name: "Yulia Kazakova")]))
-    }
 }

@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var dataSource = UserDataSource()
-    
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(entity: CachedUser.entity(), sortDescriptors: []) var users: FetchedResults<CachedUser>
+
     var body: some View {
         NavigationView {
             List {
-                ForEach(dataSource.users) { user in
+                ForEach(users) { user in
                     NavigationLink {
                         UserDetailView(user: user)
                     } label: {
                         VStack(alignment: .leading) {
-                            Text(user.name)
+                            Text(user.wrappedName)
                                 .font(.headline)
                             Text(user.isActive ? "Online" : "Offline")
                                 .font(.subheadline)

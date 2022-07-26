@@ -15,9 +15,9 @@ struct Friend: Codable, Identifiable {
 struct User: Codable, Identifiable {
     var id: String
     var isActive: Bool
-    var registered: Date
+    var registered: String
     var name: String
-    var age: Int
+    var age: Int16
     var company: String
     var email: String
     var address: String
