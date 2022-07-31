@@ -9,29 +9,27 @@ import SwiftUI
 
 struct PhotoCreatorView: View {
     @Environment(\.dismiss) var dismiss
-    
-    @State private var showingPhotoPicker = false
-    @State private var selectedImage: UIImage?
-    @State private var image: Image?
-    
-    @State private var title = ""
-    @State private var description = ""
+    @StateObject private var viewModel: ViewModel
+
+    init(photosContainer: PhotosContainer) {
+        self._viewModel = StateObject(wrappedValue: ViewModel(photosContainer))
+    }
 
     var body: some View {
         VStack(spacing: 16) {
-            image?
+            viewModel.image?
                 .resizable()
                 .scaledToFit()
 
-            if selectedImage != nil {
+            if viewModel.selectedImage != nil {
                 VStack {
-                    TextField("Title", text: $title)
-                    TextField("Description", text: $description)
+                    TextField("Title", text: $viewModel.title)
+                    TextField("Description", text: $viewModel.description)
                 }
             }
 
             Button {
-                showingPhotoPicker = true
+                viewModel.showingPhotoPicker = true
             } label: {
                 Text("Select a photo")
                     .padding()
@@ -46,25 +44,25 @@ struct PhotoCreatorView: View {
             Spacer()
         }
         .padding()
-        .sheet(isPresented: $showingPhotoPicker) {
-            PhotoPicker(image: $selectedImage)
-        }
-        .onChange(of: selectedImage) { newValue in
-            guard let newValue = newValue else {
-                return
-            }
-            image = Image(uiImage: newValue)
+        .sheet(isPresented: $viewModel.showingPhotoPicker) {
+            PhotoPicker(image: $viewModel.selectedImage)
         }
         .toolbar {
             Button("Save") {
+                guard let selectedImage = viewModel.selectedImage else {
+                    return
+                }
+                let photo = Photo(image: selectedImage, title: viewModel.title, description: viewModel.description)
+                viewModel.photosContainer.add(photo: photo)
                 dismiss()
             }
+            .disabled(!viewModel.isReadyToSave)
         }
     }
 }
 
 struct PhotoCreatorView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoCreatorView()
+        PhotoCreatorView(photosContainer: PhotosContainer())
     }
 }

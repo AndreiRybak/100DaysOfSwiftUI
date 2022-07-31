@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0729784F289679ED00A0E727 /* PhotosContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0729784E289679ED00A0E727 /* PhotosContainer.swift */; };
 		073C3CF028958C1300203320 /* PhotoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073C3CEF28958C1300203320 /* PhotoListApp.swift */; };
 		073C3CF228958C1300203320 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073C3CF128958C1300203320 /* ContentView.swift */; };
 		073C3CF428958C1A00203320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073C3CF328958C1A00203320 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0729784E289679ED00A0E727 /* PhotosContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosContainer.swift; sourceTree = "<group>"; };
 		073C3CEC28958C1300203320 /* PhotoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		073C3CEF28958C1300203320 /* PhotoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListApp.swift; sourceTree = "<group>"; };
 		073C3CF128958C1300203320 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				073C3D052895A16C00203320 /* PhotoCreatorView-ViewModel.swift */,
 				073C3CFD28958C7B00203320 /* PhotoPicker.swift */,
 				073C3D0128959F1900203320 /* Photo.swift */,
+				0729784E289679ED00A0E727 /* PhotosContainer.swift */,
 				073C3D032895A12500203320 /* FileManager-Extension.swift */,
 				073C3CF328958C1A00203320 /* Assets.xcassets */,
 				073C3CF528958C1A00203320 /* Preview Content */,
@@ -154,6 +157,7 @@
 			files = (
 				073C3D062895A16C00203320 /* PhotoCreatorView-ViewModel.swift in Sources */,
 				073C3CF228958C1300203320 /* ContentView.swift in Sources */,
+				0729784F289679ED00A0E727 /* PhotosContainer.swift in Sources */,
 				073C3D042895A12500203320 /* FileManager-Extension.swift in Sources */,
 				073C3CF028958C1300203320 /* PhotoListApp.swift in Sources */,
 				073C3D002895925000203320 /* PhotoCreatorView.swift in Sources */,

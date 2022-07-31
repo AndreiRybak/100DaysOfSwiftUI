@@ -8,14 +8,21 @@
 import Foundation
 import UIKit
 
-struct Photo: Codable {
+struct Photo: Codable, Identifiable {
     enum CodingKeys: CodingKey {
         case image, title, description
     }
-
+    
+    var id = UUID()
     var image: UIImage
     var title: String
     var description: String
+    
+    init(image: UIImage, title: String, description: String) {
+        self.image = image
+        self.title = title
+        self.description = description
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

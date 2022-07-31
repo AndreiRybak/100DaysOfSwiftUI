@@ -8,22 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedImage: UIImage?
-    @State private var selectedConvertedImage: Image?
+    @StateObject var photosContainer = PhotosContainer()
 
     var body: some View {
         NavigationView {
-            Group {
-                Text("TEST")
+            List {
+                ForEach(photosContainer.photos) { photo in
+                    HStack {
+                        Image(uiImage: photo.image)
+                            .resizable()
+                            .frame(width: 140, height: 70)
+                            .scaledToFit()
+                        VStack(alignment: .leading) {
+                            Text(photo.title)
+                                .font(.headline)
+                            Text(photo.description)
+                                .font(.subheadline)
+                        }
+                    }
+                }
+                .onDelete(perform: deletePhotos)
             }
             .toolbar {
                 NavigationLink {
-                   PhotoCreatorView()
+                    PhotoCreatorView(photosContainer: photosContainer)
                 } label: {
                     Image(systemName: "plus")
                 }
             }
+            .navigationBarTitle("PhotoList")
         }
+    }
+    
+    func deletePhotos(at offsets: IndexSet) {
+        photosContainer.removePhoto(at: offsets)
     }
 }
 
