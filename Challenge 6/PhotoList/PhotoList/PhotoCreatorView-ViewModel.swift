@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import CoreLocation
 
 extension PhotoCreatorView {
     @MainActor class ViewModel: ObservableObject {
@@ -29,6 +30,9 @@ extension PhotoCreatorView {
         @Published var title = ""
         @Published var description = ""
         
+        @Published var latitude: Double?
+        @Published var longitude: Double?
+
         var isReadyToSave: Bool {
             if selectedImage != nil && !title.isEmpty && !description.isEmpty {
                 return true

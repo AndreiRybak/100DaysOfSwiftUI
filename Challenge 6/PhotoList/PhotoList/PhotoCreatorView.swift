@@ -22,9 +22,16 @@ struct PhotoCreatorView: View {
                 .scaledToFit()
 
             if viewModel.selectedImage != nil {
-                VStack {
+                VStack(alignment: .leading, spacing: 12) {
                     TextField("Title", text: $viewModel.title)
                     TextField("Description", text: $viewModel.description)
+                    Text(viewModel.latitude == nil ? "latitude: N/A " : "latitude: \(viewModel.latitude!) ") +
+                    Text(viewModel.longitude == nil ? "longitude: N/A " : "longitude: \(viewModel.longitude!)")
+                    NavigationLink {
+                        PlaceSelectView(latitude: $viewModel.latitude, longitude: $viewModel.longitude)
+                    } label: {
+                        Text("Add a place")
+                    }
                 }
             }
 
@@ -52,7 +59,7 @@ struct PhotoCreatorView: View {
                 guard let selectedImage = viewModel.selectedImage else {
                     return
                 }
-                let photo = Photo(image: selectedImage, title: viewModel.title, description: viewModel.description)
+                let photo = Photo(image: selectedImage, title: viewModel.title, description: viewModel.description, latitude: viewModel.latitude, longitude: viewModel.longitude)
                 viewModel.photosContainer.add(photo: photo)
                 dismiss()
             }

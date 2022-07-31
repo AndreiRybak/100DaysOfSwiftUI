@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     @StateObject var photosContainer = PhotosContainer()
@@ -14,16 +15,20 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(photosContainer.photos) { photo in
-                    HStack {
-                        Image(uiImage: photo.image)
-                            .resizable()
-                            .frame(width: 140, height: 70)
-                            .scaledToFit()
-                        VStack(alignment: .leading) {
-                            Text(photo.title)
-                                .font(.headline)
-                            Text(photo.description)
-                                .font(.subheadline)
+                    NavigationLink {
+                        PhotoDetailView(photo: photo, mapRegion: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan()))
+                    } label: {
+                        HStack {
+                            Image(uiImage: photo.image)
+                                .resizable()
+                                .frame(width: 140, height: 70)
+                                .scaledToFit()
+                            VStack(alignment: .leading) {
+                                Text(photo.title)
+                                    .font(.headline)
+                                Text(photo.description)
+                                    .font(.subheadline)
+                            }
                         }
                     }
                 }
