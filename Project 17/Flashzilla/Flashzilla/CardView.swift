@@ -21,7 +21,7 @@ extension Shape {
 
 struct CardView: View {
     let card: Card
-    let removal: (() -> Void)?
+    let removal: ((Bool) -> Void)?
     
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOverEnabled
@@ -84,8 +84,11 @@ struct CardView: View {
                     if abs(offset.width) > 100 {
                         if offset.width < 0 {
                             feedback.notificationOccurred(.error)
+                            removal?(false)
+                        } else {
+                            removal?(true)
                         }
-                        removal?()
+                        
                     } else {
                         offset = .zero
                     }

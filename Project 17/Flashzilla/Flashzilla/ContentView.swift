@@ -42,16 +42,16 @@ struct ContentView: View {
                     .background(.black.opacity(0.75))
                     .clipShape(Capsule())
                 ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: cards[index]) {
+                    ForEach(Array(cards.enumerated()), id: \.1.id) { index, card in
+                        CardView(card: card) { isCorrect in
                             withAnimation {
-                                removeCard(at: index)
+                                removeCard(at: index, isCorrect: isCorrect)
                             }
                         }
                         .stacked(at: index, in: cards.count)
                         .allowsTightening(index == cards.count - 1)
                         .accessibilityHidden(index < cards.count - 1)
-                    } 
+                    }
                 }
                 .allowsTightening(timeRemainging > 0)
                 
@@ -88,7 +88,7 @@ struct ContentView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard(at: cards.count - 1, isCorrect: false)
                             }
                         } label: {
                             Image(systemName: "xmark.circle")
@@ -103,7 +103,7 @@ struct ContentView: View {
                         
                         Button {
                             withAnimation {
-                                removeCard(at: cards.count - 1)
+                                removeCard(at: cards.count - 1, isCorrect: true)
                             }
                         } label: {
                             Image(systemName: "checkmark.circle")
@@ -143,11 +143,18 @@ struct ContentView: View {
         .onAppear(perform: resetCards)
     }
     
-    func removeCard(at index: Int) {
+    func removeCard(at index: Int, isCorrect: Bool) {
         guard index >= 0 else { return }
         
+        let card = cards[index]
+
         cards.remove(at: index)
-        
+
+        if !isCorrect {
+            let newCard = Card(prompt: card.prompt, answer: card.answer)
+            cards.insert(newCard, at: 0)
+        }
+
         if cards.isEmpty {
             isActive = false
         }
